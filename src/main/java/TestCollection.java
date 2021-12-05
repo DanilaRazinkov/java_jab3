@@ -3,6 +3,8 @@ import java.util.List;
 
 public class TestCollection {
 
+    private TestCollection(){}
+
     /**
      * измеряет время выполнения n операций добавления
      *
@@ -86,6 +88,52 @@ public class TestCollection {
     }
 
     /**
+     * измеряет время n операций получения с первой позиции
+     *
+     * @param testList коллекция для теста
+     * @param n        количесво необходимых элементов
+     * @return время выполнения
+     */
+    public static long testGetFirst(List<Integer> testList, int n) {
+        addTo(n, testList);
+        long start = System.nanoTime();
+        for (int i = 0; i < n; i++)
+            testList.get(0);
+        return System.nanoTime() - start;
+    }
+
+    /**
+     * измеряет время n операций получения с последней позиции
+     *
+     * @param testList коллекция для теста
+     * @param n        количесво необходимых элементов
+     * @return время выполнения
+     */
+    public static long testGetLast(List<Integer> testList, int n) {
+        addTo(n, testList);
+        long start = System.nanoTime();
+        for (int i = n - 1; i >= 0; i--)
+            testList.get(n-1);
+        return System.nanoTime() - start;
+    }
+
+    /**
+     * измеряет время n операций получения из середины
+     *
+     * @param testList коллекция для теста
+     * @param n        количесво необходимых элементов
+     * @return время выполнения
+     */
+    public static long testGetCenter(List<Integer> testList, int n) {
+        addTo(n, testList);
+        long start = System.nanoTime();
+        int halfN = n / 2;
+        for (int i = 0; i < n; i++)
+            testList.get(halfN);
+        return System.nanoTime() - start;
+    }
+
+    /**
      * измеряем время очистки
      *
      * @param testList коллекция для теста
@@ -103,7 +151,7 @@ public class TestCollection {
      * дополняет элементы ДО необходимого количества
      *
      * @param count  необходимое количество
-     * @param addCol коллукция для добавления
+     * @param addCol коллекция для добавления
      */
     private static void addTo(int count, Collection<Integer> addCol) {
         for (int i = addCol.size(); i < count; i++)
